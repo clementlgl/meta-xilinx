@@ -1,3 +1,6 @@
+/*
+ * Xilinx MiniZed board DTS
+*/
 /dts-v1/;
 /include/ "zynq-7000.dtsi"
 
@@ -6,23 +9,14 @@
 	compatible = "xlnx,zynq-minized", "xlnx,zynq-7000";
 
 	aliases {
-		ethernet0 = &gem0;
 		serial0 = &uart1;
+                spi0 = &qspi;
+                mmc = &sdhci1;
 	};
 
 	memory {
 		device_type = "memory";
 		reg = <0x0 0x40000000>;
-	};
-
-	chosen {
-		bootargs = "earlycon";
-		stdout-path = "serial0:115200n8";
-	};
-
-	usb_phy0: phy0 {
-		compatible = "usb-nop-xceiv";
-		#phy-cells = <0>;
 	};
 };
 
@@ -30,21 +24,13 @@
 	ps-clk-frequency = <33333333>;
 };
 
-&gem0 {
-	status = "okay";
-	phy-mode = "rgmii-id";
-	phy-handle = <&ethernet_phy>;
-
-	ethernet_phy: ethernet-phy@0 {
-		reg = <0>;
-	};
-};
-
-&sdhci0 {
+&sdhci1 {
+        u-boot,dm-pre-reloc;
 	status = "okay";
 };
 
 &uart1 {
+        u-boot,dm-pre-reloc;
 	status = "okay";
 };
 
