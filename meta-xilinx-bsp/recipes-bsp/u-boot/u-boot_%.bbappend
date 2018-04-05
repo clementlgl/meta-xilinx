@@ -9,4 +9,9 @@ HAS_PLATFORM_INIT ??= " \
 		zynq_zybo_config \
 		zynq_minized_config \
 		"
+FILESEXTRAPATHS_prepend := "${THISDIR}/u-boot-xlnx:"
+
+SRC_URI_append = " \
+                file://Add-zynq-minized-board-support.patch \
+                "
 
